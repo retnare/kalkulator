@@ -195,6 +195,18 @@ public class MainActivity extends AppCompatActivity {
             // Memutar audio (pastikan Anda sudah meletakkan file audio, misal 'suara.mp3', di folder res/raw)
             android.media.MediaPlayer mediaPlayer = android.media.MediaPlayer.create(MainActivity.this, R.raw.minefields);
             mediaPlayer.start();
+            new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mediaPlayer != null) {
+                        if (mediaPlayer.isPlaying()) {
+                            mediaPlayer.stop();
+                        }
+                        mediaPlayer.release(); // Melepaskan resource memory
+                    }
+                }
+            }, 10000);
+
         } else if (hasil == 9.0) {
             if (androidx.core.app.ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED
                     && androidx.core.app.ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
